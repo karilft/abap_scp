@@ -1,0 +1,5 @@
+@EndUserText.label: 'Biblioteca'
+define service ZSD_BIBLIOTECA_KLFT {
+  expose Z_I_BIBLIOTECA_KLFT as Biblioteca;
+  expose Z_B_CLIENTES_KLF    as Clientes;
+}

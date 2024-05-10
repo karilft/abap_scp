@@ -1,0 +1,109 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'Libro',
+    typeNamePlural: 'Listado de Libros', // Título que figura en el ALV.
+    description: { 
+        type: #STANDARD,
+        criticalityRepresentation: #WITHOUT_ICON,
+        value: 'Autor'  // Segundo campo a mostrar como Sub-Titulo al seleccionar un item del ALV.
+    }
+}
+
+// Habilita el campo por defecto Search en la parte superior. Luego hay que indicar por
+// que campos se permite la búsqueda.
+@Search.searchable: true
+annotate view Z_I_BIBLIOTECA_KLFT with
+{
+  // UI.Facet: Habilita el cuadro en la parte superior                 
+                // #COLLECTION 
+  @UI.facet: [{ id: 'DetallesLibro',         // ID de la solapa
+                position: 10,               
+                label: 'Detalles del Libro', // Titulo de la pestaña
+                type: #COLLECTION }
+                
+                // Solapa Libro tipo FIELDGROUP_REFERENCE 
+             ,{ id: 'Libro',  
+                parentId: 'DetallesLibro',   // Id definido en el COLLECTION
+                position: 10,                // Posición en el FACET
+                label: 'Detalles',           // Titulo 
+                type: #FIELDGROUP_REFERENCE,
+                targetQualifier: 'DetalleLibro' }
+                
+                // Solapa Clientes tipo #LINEITEM_REFERENCE
+             ,{ id: 'DatosCliente',  
+                position: 20,                // Posición en el FACET
+                label: 'Clientes',           // Titulo 
+                type: #LINEITEM_REFERENCE,
+                targetElement: '_Clientes'
+                }]
+               
+  // Search: en pantalla principal automatico
+  @Search: {
+      defaultSearchElement: true,
+      ranking: #MEDIUM,
+      fuzzinessThreshold: 0.8 // Valor recomendado
+  }
+
+  // LineItem: Posición de columna en ALV
+  @UI.lineItem: [{ position: 10 }]
+
+  // FieldGroup: Campos a mostrar en solapa al seleccionar un libro con su posición
+  @UI.fieldGroup: [{ qualifier: 'DetalleLibro', position: 10 }]
+  Editorial;
+  @UI.fieldGroup: [{ qualifier: 'DetalleLibro', position: 20 }]
+  Idioma;
+  @UI.fieldGroup: [{ qualifier: 'DetalleLibro', position: 30 }]
+  Paginas;
+  @UI.fieldGroup: [{ qualifier: 'DetalleLibro', position: 40 }]
+  Precio;
+  @UI.fieldGroup: [{ qualifier: 'DetalleLibro', position: 50 }]
+  Moneda;
+  @UI.fieldGroup: [{ qualifier: 'DetallesLibro', position: 60 }]
+  Formato;
+
+  // LineItem: Columnas en el ALV
+  @UI.lineItem: [{ position: 20 }]
+
+  // Campo de busqueda predeterminado 
+  @UI.selectionField: [{ position: 20 }]
+  Titulo;
+
+  // Search: en pantalla principal automatico
+  @Search: {
+      defaultSearchElement: true,
+      ranking: #MEDIUM,
+      fuzzinessThreshold: 0.8 // Valor recomendado
+  }
+
+  @UI.lineItem: [{ position: 30 }]
+  Autor;
+
+  // Consumption.valueHelpDefinition: Ayuda de busqueda
+  @Consumption.valueHelpDefinition: [{
+      qualifier: '',
+      entity: {
+          name: 'z_b_catego_klft', // Tabla
+          element: 'BiCateg'       // Campo
+      },
+      label: 'BiCateg',
+      presentationVariantQualifier: ''
+  }]
+
+  // Campo de busqueda predeterminado 
+  @UI.selectionField: [{ position: 40 }]
+  @UI.lineItem: [{ position: 40 }]
+  BiCateg;
+  
+  @UI.lineItem: [{ position: 50 }]
+  Descripcion;
+  
+  @UI.lineItem: [{ position: 60 }]
+  CantidadVendida;
+
+  // Criticality: se indica la columna 
+  @UI.lineItem: [{ position: 70 , criticality: 'Semasforo'}]
+  Criticidad;
+  
+  @UI.lineItem: [{ position: 80 }]
+  _Clientes;   
+}
