@@ -12,7 +12,8 @@ CLASS zcl_load_data_klft DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_load_data_klft IMPLEMENTATION.
+
+CLASS ZCL_LOAD_DATA_KLFT IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
@@ -21,7 +22,16 @@ CLASS zcl_load_data_klft IMPLEMENTATION.
           lt_catego_klft  TYPE TABLE OF ztb_catego_klft,
           lt_clientes_klf TYPE TABLE OF ztb_clientes_klf,
           lt_clnts_lib_kl TYPE TABLE OF ztb_clnts_lib_kl,
-          lt_libros_klft  TYPE TABLE OF ztb_libros_klft.
+          lt_libros_klft  TYPE TABLE OF ztb_libros_klft,
+          lt_employee_klft TYPE TABLE OF zemployee_klft.
+
+  lt_employee_klft = VALUE #( ( id = '1' name = 'Amanda')
+                         ( id = '2' name = 'Jose')
+                         ( id = '3' name = 'Juan')
+                         ( id = '4' name = 'Pepe') ).
+
+  DELETE FROM zemployee_klft.
+  INSERT zemployee_klft FROM TABLE @lt_employee_klft.
 
   lt_acc_categ_kl = VALUE #( ( bi_categ = 'A' tipo_acceso = '1' )
                            ( bi_categ = 'B' tipo_acceso = '2' )
@@ -108,4 +118,3 @@ CLASS zcl_load_data_klft IMPLEMENTATION.
 
   ENDMETHOD.
 ENDCLASS.
-

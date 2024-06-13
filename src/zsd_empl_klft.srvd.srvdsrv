@@ -1,0 +1,4 @@
+@EndUserText.label: 'Employee'
+define service ZSD_Empl_klft {
+  expose ZCE_Employee_klft;
+}

@@ -18,7 +18,10 @@ CREATE PUBLIC .
 ENDCLASS.
 
 
-CLASS zcl_data_file_upload_klft IMPLEMENTATION.
+
+CLASS ZCL_DATA_FILE_UPLOAD_KLFT IMPLEMENTATION.
+
+
   METHOD if_http_service_extension~handle_request.
     CASE request->get_method( ).
       WHEN CONV string( if_web_http_client=>get ).
@@ -116,6 +119,7 @@ CLASS zcl_data_file_upload_klft IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+
   METHOD get_input_field_value.
     FIELD-SYMBOLS: <value> TYPE data,
                    <field> TYPE any.
@@ -125,6 +129,7 @@ CLASS zcl_data_file_upload_klft IMPLEMENTATION.
       value = condense( <value> ).
     ENDIF.
   ENDMETHOD.
+
 
   METHOD get_html.
     ui_html =
